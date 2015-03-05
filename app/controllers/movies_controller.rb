@@ -6,8 +6,18 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+  def highlight(field)
+      if sort==field
+        return 'hilite'
+      else
+        return nil
+      end
+  end
+
   def index
-    @movies = Movie.all
+    sort= params[:sort]
+
+    @movies = Movie.order(sort)
   end
 
   def new
