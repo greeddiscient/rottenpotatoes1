@@ -6,18 +6,25 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def highlight(field)
-      if sort==field
-        return 'hilite'
-      else
-        return nil
-      end
-  end
-
   def index
+    if session[:ratings]==nil
+      session[:ratings]= {'G' => 1,'PG' => 1,'PG-13' => 1, 'R' =>1 }
+    end
     sort= params[:sort]
 
-    @movies = Movie.order(sort)
+    @all_ratings=['G','PG','PG-13','R'] 
+
+    @chosen_ratings=params[:ratings]
+    if @chosen_ratings==nil
+      @chosen_ratings = session[:ratings]
+    end
+
+    session[:ratings]=@chosen_ratings
+
+
+    @movies= Movie.where(rating: @chosen_ratings.keys).order(sort)
+
+    #debugger
   end
 
   def new
