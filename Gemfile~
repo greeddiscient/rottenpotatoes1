@@ -4,8 +4,6 @@ ruby '1.9.3'
 gem 'rails', '3.2.16'
 
 group :development, :test do
-	gem 'database_cleaner'
-  gem 'cucumber-rails', :require => false
 	gem 'debugger'
   gem 'sqlite3'
 end
